@@ -37,6 +37,48 @@ mod search {
     }
 }
 
+pub mod sort {
+
+    use std::mem;
+
+    pub enum Ordering {
+        Accending,
+        Deccening,
+    }
+
+    pub fn selection_sort<T>(slice: &mut [T], order: Ordering) -> Result<(), &'static str>
+    where
+        T: Ord,
+    {
+        for i in 0..slice.len() - 1 {
+            match find_smallest(slice.get_mut(i + 1..).unwrap()) {
+                Some(val) => slice.swap(i + val, i),
+                _ => (),
+            }
+        }
+        Ok(())
+    }
+
+    fn find_smallest<T>(slice: &mut [T]) -> Option<usize>
+    where
+        T: Ord,
+    {
+        match slice.len() {
+            0 => None,
+            1 => Some(0),
+            _ => {
+                let mut smallest = 0;
+                for i in 0..slice.len() - 1 {
+                    if slice[i] < slice[smallest] {
+                        smallest = i;
+                    }
+                }
+                Some(smallest)
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
