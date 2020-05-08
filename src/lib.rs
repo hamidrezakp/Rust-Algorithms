@@ -39,8 +39,6 @@ mod search {
 
 pub mod sort {
 
-    use std::mem;
-
     pub enum Ordering {
         Accending,
         Deccening,
@@ -48,10 +46,10 @@ pub mod sort {
 
     pub fn selection_sort<T>(slice: &mut [T], order: Ordering) -> Result<(), &'static str>
     where
-        T: Ord,
+        T: Ord + std::fmt::Debug,
     {
-        for i in 0..slice.len() - 1 {
-            match find_smallest(slice.get_mut(i + 1..).unwrap()) {
+        for i in 0..slice.len() {
+            match find_smallest(slice.get(i..).unwrap()) {
                 Some(val) => slice.swap(i + val, i),
                 _ => (),
             }
@@ -59,7 +57,7 @@ pub mod sort {
         Ok(())
     }
 
-    fn find_smallest<T>(slice: &mut [T]) -> Option<usize>
+    fn find_smallest<T>(slice: &[T]) -> Option<usize>
     where
         T: Ord,
     {
@@ -68,7 +66,7 @@ pub mod sort {
             1 => Some(0),
             _ => {
                 let mut smallest = 0;
-                for i in 0..slice.len() - 1 {
+                for i in 0..slice.len() {
                     if slice[i] < slice[smallest] {
                         smallest = i;
                     }
@@ -108,5 +106,55 @@ mod tests {
         let item = 6;
 
         assert_eq!(Ok(Some(5)), search::binary_search(&array, &item));
+    }
+
+    #[test]
+    fn test_selection_sort_empty_slice() {
+        let mut array = [0u8; 0];
+        assert_eq!(
+            Ok(()),
+            sort::selection_sort(&mut array, sort::Ordering::Accending)
+        );
+        assert_eq!(array, [0u8; 0]);
+    }
+
+    #[test]
+    fn test_selection_sort_one_element() {
+        let mut array = [0];
+        assert_eq!(
+            Ok(()),
+            sort::selection_sort(&mut array, sort::Ordering::Accending)
+        );
+        assert_eq!(array, [0]);
+    }
+
+    #[test]
+    fn test_selection_sort_two_element() {
+        let mut array = [2, 1];
+        assert_eq!(
+            Ok(()),
+            sort::selection_sort(&mut array, sort::Ordering::Accending)
+        );
+        assert_eq!(array, [1, 2]);
+    }
+
+    #[test]
+    fn test_selection_sort_multiple_element() {
+        let mut array = [4, 24, 12, 0, 445, 2, 1];
+        assert_eq!(
+            Ok(()),
+            sort::selection_sort(&mut array, sort::Ordering::Accending)
+        );
+        assert_eq!(array, [0, 1, 2, 4, 12, 24, 445]);
+    }
+
+    #[test]
+    fn test_selection_sort_multiple_element_sorted() {
+        let mut array = [0, 1, 2, 4, 12, 24, 445];
+        assert_eq!(
+            Ok(()),
+            sort::selection_sort(&mut array, sort::Ordering::Accending)
+        );
+        assert_eq!(array, [0, 1, 2, 4, 12, 24, 445]);
     }
 }
