@@ -3,10 +3,11 @@ The goal of this repo is to write and learn diffrent algorithms.
 Feel free to use or share this code, also contributions are wellcome.
 
 ## Sort
-	=> [Is Written?] [Is Tested?] Algorithm_name
-	* [x] [x] Selection Sort 
-	* [x] [x] Insertion Sort
+* [x] Selection Sort 
+* [x] Insertion Sort
+* [ ] Merge Sort
+* [ ] Quick Sort
 
 ## Search
-	=> [Is Written?] [Is Tested?] Algorithm_name
-	* [x] [x] Binary Search
+* [ ] Linear Search
+* [x] Binary Search
