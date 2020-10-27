@@ -5,7 +5,7 @@ Feel free to use or share this code, also contributions are wellcome.
 ## Sort
 * [x] Selection Sort 
 * [x] Insertion Sort
-* [ ] Merge Sort
+* [x] Merge Sort
 * [ ] Quick Sort
 
 ## Search
