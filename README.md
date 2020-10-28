@@ -1,4 +1,4 @@
-# Algorithms Written in Rust
+# Algorithms Written in Rust ![](https://travis-ci.org/hamidrezakp/Rust-Algorithms.svg?branch=master)
 The goal of this repository is to write and learn different algorithms.
 Feel free to use or share this code, also contributions are welcome.
 
