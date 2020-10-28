@@ -7,10 +7,7 @@ pub fn quick_sort<T: Copy + Ord + Debug>(slice: &mut [T], order: Ordering) {
         // base case
         0 | 1 => return,
         _ => {
-            eprintln!("Array before: {:?}", slice);
             let pivot_index = partition(slice, order);
-            eprintln!("Pivot Index: {:?}", pivot_index);
-            eprintln!("Array After: {:?}\n\n", slice);
             quick_sort(&mut slice[0..pivot_index], order);
             quick_sort(&mut slice[pivot_index + 1..s_len], order);
         }
